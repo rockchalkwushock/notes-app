@@ -6,6 +6,8 @@
   "author": "Cody Brunner <rockchalkwushock@iclould.com> (https://rockchalkwushock.github.io/rcws-development/)",
   "description": "Client-side views for Serverless API.",
   "dependencies": {
+    "amazon-cognito-identity-js": "^1.16.0",
+    "aws-sdk": "^2.41.0",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.4",
