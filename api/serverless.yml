@@ -1,0 +1,83 @@
+service: notes-app
+
+# Use serverless-webpack plugin to transpile ES6/ES7
+plugins:
+  - serverless-webpack
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: prod
+  region: us-west-2
+
+# 'iamRoleStatement' defines the permission policy for the Lambda function.
+  # In this case Lambda functions are granted with permissions to access DynamoDB.
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-west-2:*:*"
+
+functions:
+  notesCreate: # This is what must be passed to the --function flag.
+    handler: notes/create.main # path to function/module
+    description: Create a note.
+    events:
+      - http:
+          path: notes # url path for api
+          method: post
+          cors: true
+          authorizer:
+            arn: ${file(./serverless.env.yml):AWS_POOL_ARN}
+
+  notesGet:
+    handler: notes/get.main
+    description: Get a single note.
+    events:
+      - http:
+          path: notes/{id}
+          method: get
+          cors: true
+          authorizer:
+            arn: ${file(./serverless.env.yml):AWS_POOL_ARN}
+
+  notesList:
+    handler: notes/list.main
+    description: Get all notes stored under the userId.
+    events:
+      - http:
+          path: notes
+          method: get
+          cors: true
+          authorizer:
+            arn: ${file(./serverless.env.yml):AWS_POOL_ARN}
+
+  notesUpdate:
+    handler: notes/update.main
+    events:
+      - http:
+          path: notes/{id}
+          method: put
+          cors: true
+          authorizer:
+            arn: ${file(./serverless.env.yml):AWS_POOL_ARN}
+
+  notesDelete:
+    handler: notes/delete.main
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
+          cors: true
+          authorizer:
+            arn: ${file(./serverless.env.yml):AWS_POOL_ARN}

@@ -1,0 +1,33 @@
+{
+  "name": "notes-app-api",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": "https://github.com/rockchalkwushock/notes-app.git",
+  "author": "Cody Brunner <rockchalkwushock@iclould.com> (https://rockchalkwushock.github.io/rcws-development/)",
+  "description": "API built using Serverless, AWS Lambda, & Amazon Gateway API.",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "sls deploy",
+    "post:note": "sls webpack invoke -f notesCreate -p notes/event-tests/create.json",
+    "get:note": "sls webpack invoke -f notesGet -p notes/event-tests/get.json",
+    "get:notes": "sls webpack invoke -f notesList -p notes/event-tests/list.json",
+    "put:note": "sls webpack invoke -f notesUpdate -p notes/event-tests/update.json",
+    "del:note": "sls webpack invoke -f notesDelete -p notes/event-tests/delete.json"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.41.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.3.3",
+    "babel-preset-react": "^6.24.1",
+    "glob": "^7.1.1",
+    "serverless-webpack": "^1.0.0-rc.4",
+    "webpack": "^2.3.3",
+    "webpack-node-externals": "^1.5.4"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "uuid": "^3.0.1"
+  }
+}

@@ -1,0 +1,19 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack
+.webpack
+
+# Editor
+.vscode
+
+# Sensitive
+.env
+serverless.env.yml
+
+# Other
+.DS_Store
