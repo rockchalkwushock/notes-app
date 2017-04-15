@@ -7,7 +7,7 @@ export const main = async (e, ctx, cb) => {
     KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
       ':userId': e.requestContext.authorizer.claims.sub,
-    }
+    },
   };
 
   try {

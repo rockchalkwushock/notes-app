@@ -11,8 +11,8 @@ export const main = async (e, ctx, cb) => {
       noteId: uuid.v1(),
       content: data.content,
       attachment: data.attachment,
-      createdAt: new Date().getTime()
-    }
+      createdAt: new Date().getTime(),
+    },
   };
 
   try {

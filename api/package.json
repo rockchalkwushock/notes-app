@@ -7,6 +7,8 @@
   "description": "API built using Serverless, AWS Lambda, & Amazon Gateway API.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint libs notes",
+    "lint:fix": "eslint libs notes --fix",
     "deploy": "sls deploy",
     "post:note": "sls webpack invoke -f notesCreate -p notes/event-tests/create.json",
     "get:note": "sls webpack invoke -f notesGet -p notes/event-tests/get.json",
@@ -21,6 +23,8 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.3.3",
     "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-equimper": "^1.6.2",
     "glob": "^7.1.1",
     "serverless-webpack": "^1.0.0-rc.4",
     "webpack": "^2.3.3",

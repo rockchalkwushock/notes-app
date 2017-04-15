@@ -5,8 +5,8 @@ export const main = async (e, ctx, cb) => {
     TableName: 'notes',
     Key: {
       userId: e.requestContext.authorizer.claims.sub,
-      noteId: e.pathParameters.id
-    }
+      noteId: e.pathParameters.id,
+    },
   };
 
   try {
