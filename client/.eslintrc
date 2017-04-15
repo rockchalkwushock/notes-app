@@ -1,7 +1,6 @@
 {
   "extends": "equimper",
   "rules": {
-    "no-alert":"off",
-    "no-console":"off"
+    "no-alert":"off"
   }
 }
