@@ -8,8 +8,8 @@ export default userToken => {
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId,
     Logins: {
-      [authenticator]: userToken
-    }
+      [authenticator]: userToken,
+    },
   });
   return new Promise((resolve, reject) => (
     AWS.config.credentials.get((err) => {
@@ -20,4 +20,4 @@ export default userToken => {
       resolve();
     })
   ));
-}
+};

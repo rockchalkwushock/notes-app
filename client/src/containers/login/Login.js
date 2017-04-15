@@ -30,7 +30,7 @@ class Login extends Component {
   }
   _handleChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
   }
   _handleSubmit = async (event) => {
@@ -39,8 +39,7 @@ class Login extends Component {
     try {
       const userToken = await this._login(this.state.username, this.state.password);
       this.props.updateUserToken(userToken);
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
     }
@@ -49,7 +48,7 @@ class Login extends Component {
     const userPool = new CognitoUserPool({ UserPoolId, ClientId });
     const authenticationData = {
       Username: username,
-      Password: password
+      Password: password,
     };
 
     const user = new CognitoUser({ Username: username, Pool: userPool });
@@ -72,19 +71,21 @@ class Login extends Component {
               autoFocus
               type="email"
               value={this.state.username}
-              onChange={this._handleChange} />
+              onChange={this._handleChange}
+            />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
             <ControlLabel>Password</ControlLabel>
             <FormControl
               value={this.state.password}
               onChange={this._handleChange}
-              type="password" />
+              type="password"
+            />
           </FormGroup>
           <LoaderButton
             block
             bsSize="large"
-            disabled={ ! this._validateForm() }
+            disabled={!this._validateForm()}
             type="submit"
             isLoading={this.state.isLoading}
             text="Login"

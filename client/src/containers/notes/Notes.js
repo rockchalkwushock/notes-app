@@ -28,8 +28,7 @@ class Notes extends Component {
         note: results,
         content: results.content,
       });
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
     }
   }
@@ -42,7 +41,7 @@ class Notes extends Component {
   _formatFilename(str) {
     return (str.length < 50)
       ? str
-      : str.substr(0, 20) + '...' + str.substr(str.length - 20, str.length);
+      : `${str.substr(0, 20)}...${str.substr(str.length - 20, str.length)}`;
   }
   _handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
@@ -68,8 +67,7 @@ class Notes extends Component {
         attachment: uploadedFilename || this.state.note.attachment,
       });
       this.props.history.push('/');
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
     }
@@ -84,8 +82,7 @@ class Notes extends Component {
     try {
       await this._deleteNote();
       this.props.history.push('/');
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
       this.setState({ isDeleting: false });
     }
@@ -107,49 +104,57 @@ class Notes extends Component {
     return (
       <div className="Notes">
         { this.state.note &&
-          ( <form onSubmit={this._handleSubmit}>
+          (<form onSubmit={this._handleSubmit}>
               <FormGroup controlId="content">
                 <FormControl
                   onChange={this._handleChange}
                   value={this.state.content}
-                  componentClass="textarea" />
+                  componentClass="textarea"
+                />
               </FormGroup>
               { this.state.note.attachment &&
-              ( <FormGroup>
+              (<FormGroup>
                 <ControlLabel>Attachment</ControlLabel>
                 <FormControl.Static>
-                  <a target="_blank" href={ this.state.note.attachment }>
+                  <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={this.state.note.attachment}
+                  >
                     { this._formatFilename(this.state.note.attachment) }
                   </a>
                 </FormControl.Static>
-              </FormGroup> )}
+              </FormGroup>)}
               <FormGroup controlId="file">
-                { ! this.state.note.attachment &&
+                { !this.state.note.attachment &&
                 <ControlLabel>Attachment</ControlLabel> }
                 <FormControl
                   onChange={this._handleFileChange}
-                  type="file" />
+                  type="file"
+                />
               </FormGroup>
               <LoaderButton
                 block
                 bsStyle="primary"
                 bsSize="large"
-                disabled={ ! this._validateForm() }
+                disabled={!this._validateForm()}
                 type="submit"
                 isLoading={this.state.isLoading}
                 text="Save"
-                loadingText="Saving…" />
+                loadingText="Saving…"
+              />
               <LoaderButton
                 block
                 bsStyle="danger"
                 bsSize="large"
                 isLoading={this.state.isDeleting}
                 onClick={this._handleDelete}
-                  text="Delete"
-                  loadingText="Deleting…" />
-            </form> )}
+                text="Delete"
+                loadingText="Deleting…"
+              />
+            </form>)}
         </div>
-      );
+    );
   }
 }
 

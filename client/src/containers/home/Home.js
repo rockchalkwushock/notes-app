@@ -25,8 +25,7 @@ class Home extends Component {
     try {
       const results = await this._notes();
       this.setState({ notes: results });
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
     }
     this.setState({ isLoading: false });
@@ -37,19 +36,21 @@ class Home extends Component {
   _renderNotesList(notes) {
     return [{}].concat(notes).map((note, i) => (
       i !== 0
-        ? ( <ListGroupItem
-              key={note.noteId}
-              href={`/notes/${note.noteId}`}
-              onClick={this._handleNoteClick}
-              header={note.content.trim().split('\n')[0]}>
-                { "Created: " + (new Date(note.createdAt)).toLocaleString() }
-            </ListGroupItem> )
-        : ( <ListGroupItem
-              key="new"
-              href="/notes/new"
-              onClick={this._handleNoteClick}>
+        ? (<ListGroupItem
+          key={note.noteId}
+          href={`/notes/${note.noteId}`}
+          onClick={this._handleNoteClick}
+          header={note.content.trim().split('\n')[0]}
+        >
+                { `Created: ${(new Date(note.createdAt)).toLocaleString()}` }
+            </ListGroupItem>)
+        : (<ListGroupItem
+          key="new"
+          href="/notes/new"
+          onClick={this._handleNoteClick}
+        >
                 <h4><b>{'\uFF0B'}</b> Create a new note</h4>
-            </ListGroupItem> )
+            </ListGroupItem>)
     ));
   }
   _handleNoteClick = (event) => {
@@ -69,7 +70,7 @@ class Home extends Component {
       <div className="notes">
         <PageHeader>Your Notes</PageHeader>
         <ListGroup>
-          { ! this.state.isLoading
+          { !this.state.isLoading
             && this._renderNotesList(this.state.notes) }
         </ListGroup>
       </div>

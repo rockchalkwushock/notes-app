@@ -38,7 +38,7 @@ class Signup extends Component {
   }
   _handleChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
   }
   _handleSubmit = async (event) => {
@@ -47,8 +47,7 @@ class Signup extends Component {
     try {
       const newUser = await this._signup(this.state.username, this.state.password);
       this.setState({ newUser });
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
     }
     this.setState({ isLoading: false });
@@ -65,15 +64,14 @@ class Signup extends Component {
       );
       this.props.updateUserToken(userToken);
       this.props.history.push('/');
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
     }
   }
   _signup(username, password) {
     const userPool = new CognitoUserPool({ UserPoolId, ClientId });
-    const attributeEmail = new CognitoUserAttribute({ Name : 'email', Value : username });
+    const attributeEmail = new CognitoUserAttribute({ Name: 'email', Value: username });
     return new Promise((resolve, reject) => (
       userPool.signUp(username, password, [attributeEmail], null, (err, result) => {
         if (err) {
@@ -86,7 +84,7 @@ class Signup extends Component {
   }
   _confirm(user, confirmationCode) {
     return new Promise((resolve, reject) => (
-      user.confirmRegistration(confirmationCode, true, function(err, result) {
+      user.confirmRegistration(confirmationCode, true, (err, result) => {
         if (err) {
           reject(err);
           return;
@@ -98,7 +96,7 @@ class Signup extends Component {
   _authenticate(user, username, password) {
     const authenticationData = {
       Username: username,
-      Password: password
+      Password: password,
     };
     const authenticationDetails = new AuthenticationDetails(authenticationData);
     return new Promise((resolve, reject) => (
@@ -117,17 +115,19 @@ class Signup extends Component {
             autoFocus
             type="tel"
             value={this.state.confirmationCode}
-            onChange={this._handleChange} />
+            onChange={this._handleChange}
+          />
           <HelpBlock>Please check your email for the code.</HelpBlock>
         </FormGroup>
         <LoaderButton
           block
           bsSize="large"
-          disabled={ ! this._validateConfirmationForm() }
+          disabled={!this._validateConfirmationForm()}
           type="submit"
           isLoading={this.state.isLoading}
           text="Verify"
-          loadingText="Verifying…" />
+          loadingText="Verifying…"
+        />
       </form>
     );
   }
@@ -140,30 +140,34 @@ class Signup extends Component {
             autoFocus
             type="email"
             value={this.state.username}
-            onChange={this._handleChange} />
+            onChange={this._handleChange}
+          />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
             value={this.state.password}
             onChange={this._handleChange}
-            type="password" />
+            type="password"
+          />
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
           <ControlLabel>Confirm Password</ControlLabel>
           <FormControl
             value={this.state.confirmPassword}
             onChange={this._handleChange}
-            type="password" />
+            type="password"
+          />
         </FormGroup>
         <LoaderButton
           block
           bsSize="large"
-          disabled={ ! this._validateForm() }
+          disabled={!this._validateForm()}
           type="submit"
           isLoading={this.state.isLoading}
           text="Signup"
-          loadingText="Signing up…" />
+          loadingText="Signing up…"
+        />
       </form>
     );
   }

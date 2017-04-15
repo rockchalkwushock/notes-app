@@ -21,30 +21,29 @@ class App extends Component {
     const currentUser = this._getCurrentUser();
 
     if (currentUser === null) {
-      this.setState({isLoadingUserToken: false});
+      this.setState({ isLoadingUserToken: false });
       return;
     }
 
     try {
       const userToken = await this._getUserToken(currentUser);
       this._updateUserToken(userToken);
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
     }
 
-    this.setState({isLoadingUserToken: false});
+    this.setState({ isLoadingUserToken: false });
   }
   _updateUserToken = (userToken) => {
     this.setState({
-      userToken: userToken
+      userToken,
     });
   }
   _handleNavLink = (event) => {
     event.preventDefault();
     this.props.history.push(event.currentTarget.getAttribute('href'));
   }
-  _handleLogout = (event) => {
+  _handleLogout = () => {
     const currentUser = this._getCurrentUser();
 
     if (currentUser !== null) {
@@ -62,10 +61,10 @@ class App extends Component {
   }
   _getUserToken(currentUser) {
     return new Promise((resolve, reject) => {
-      currentUser.getSession(function(err, session) {
+      currentUser.getSession((err, session) => {
         if (err) {
-            reject(err);
-            return;
+          reject(err);
+          return;
         }
         resolve(session.getIdToken().getJwtToken());
       });
@@ -76,7 +75,7 @@ class App extends Component {
       userToken: this.state.userToken,
       updateUserToken: this._updateUserToken,
     };
-    return ! this.state.isLoadingUserToken &&
+    return !this.state.isLoadingUserToken &&
     (
       <div className="App container">
         <Navbar fluid collapseOnSelect>
@@ -91,10 +90,10 @@ class App extends Component {
               { this.state.userToken ?
                 <NavItem onClick={this._handleLogout}>Logout</NavItem>
                 :
-                [
-                  <RouteNavItem key={1} onClick={this._handleNavLink} href="/signup">Signup</RouteNavItem>,
-                  <RouteNavItem key={2} onClick={this._handleNavLink} href="/login">Login</RouteNavItem>,
-                ]
+              [
+                <RouteNavItem key={1} onClick={this._handleNavLink} href="/signup">Signup</RouteNavItem>,
+                <RouteNavItem key={2} onClick={this._handleNavLink} href="/login">Login</RouteNavItem>,
+              ]
               }
             </Nav>
           </Navbar.Collapse>

@@ -24,7 +24,7 @@ class NewNote extends Component {
   }
   _handleChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
   }
   _handleFileChange = (event) => {
@@ -46,8 +46,7 @@ class NewNote extends Component {
         attachment: uploadedFilename,
       });
       this.props.history.push('/');
-    }
-    catch(e) {
+    } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
     }
@@ -67,23 +66,26 @@ class NewNote extends Component {
             <FormControl
               onChange={this._handleChange}
               value={this.state.content}
-              componentClass="textarea" />
+              componentClass="textarea"
+            />
           </FormGroup>
           <FormGroup controlId="file">
             <ControlLabel>Attachment</ControlLabel>
             <FormControl
               onChange={this._handleFileChange}
-              type="file" />
+              type="file"
+            />
           </FormGroup>
           <LoaderButton
             block
             bsStyle="primary"
             bsSize="large"
-            disabled={ ! this._validateForm() }
+            disabled={!this._validateForm()}
             type="submit"
             isLoading={this.state.isLoading}
             text="Create"
-            loadingText="Creating…" />
+            loadingText="Creating…"
+          />
         </form>
       </div>
     );

@@ -7,7 +7,7 @@ export default async(file, userToken) => {
   console.log(file);
   console.log('______________');
   await getAwsCredentials(userToken);
-  const s3 = new AWS.S3({ params: { Bucket }});
+  const s3 = new AWS.S3({ params: { Bucket } });
   console.log('____S3_BUCKET____');
   console.log(s3);
   console.log('______________');
@@ -38,4 +38,4 @@ export default async(file, userToken) => {
   console.log(promise);
   console.log('______________');
   return promise;
-}
+};
