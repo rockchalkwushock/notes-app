@@ -77,16 +77,30 @@ class Notes extends Component {
   _handleDelete = async (event) => {
     event.preventDefault();
     const confirmed = confirm('Are you sure you want to delete this note?');
-    if ( ! confirmed) {
+    if (!confirmed) {
       return;
     }
     this.setState({ isDeleting: true });
+    try {
+      await this._deleteNote();
+      this.props.history.push('/');
+    }
+    catch(e) {
+      alert(e);
+      this.setState({ isDeleting: false });
+    }
   }
   _saveNote(note) {
     return invokeApi({
       path: `/notes/${this.props.match.params.id}`,
       method: 'PUT',
       body: note,
+    }, this.props.userToken);
+  }
+  _deleteNote() {
+    return invokeApi({
+      path: `/notes/${this.props.match.params.id}`,
+      method: 'DELETE',
     }, this.props.userToken);
   }
   render() {

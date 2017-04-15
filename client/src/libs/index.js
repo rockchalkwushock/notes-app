@@ -6,6 +6,7 @@ import {
 } from './awsVars';
 import getAWSCredentials from './getAWSCreds';
 import invokeApi from './invokeApi';
+import redirectQuery from './redirectQuery';
 import s3Upload from './s3Upload';
 
 export {
@@ -13,6 +14,7 @@ export {
   ClientId,
   getAWSCredentials,
   invokeApi,
+  redirectQuery,
   s3Upload,
   size,
   UserPoolId,

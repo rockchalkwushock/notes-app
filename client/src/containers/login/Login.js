@@ -39,7 +39,6 @@ class Login extends Component {
     try {
       const userToken = await this._login(this.state.username, this.state.password);
       this.props.updateUserToken(userToken);
-      this.props.history.push('/');
     }
     catch(e) {
       alert(e);

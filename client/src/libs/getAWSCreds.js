@@ -3,6 +3,7 @@ import { IdentityPoolId, region, UserPoolId } from './awsVars';
 
 export default userToken => {
   const authenticator = `cognito-idp.${region}.amazonaws.com/${UserPoolId}`;
+  console.log(authenticator);
   AWS.config.update({ region });
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId,
